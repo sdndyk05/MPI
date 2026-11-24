@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Royal Food Party – I Like / I Don’t Like</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--p:#3b1470;--p2:#6a2fb8;--p3:#efe3ff;--g:#f5c542;--g2:#ffe28a;--ok:#2e9e5b;--no:#e0577a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;min-height:100vh;font-family:'Baloo 2','Comic Sans MS',system-ui,sans-serif;color:#2a0f52;background:radial-gradient(circle at 50% 0,#7b3fd1,#3b1470 60%,#230a47);overflow-x:hidden}
+#sky{position:fixed;inset:0;pointer-events:none;z-index:0}
+#sky i{position:absolute;color:var(--g2);animation:tw 3s infinite ease-in-out}
+@keyframes tw{50%{opacity:.15;transform:scale(.5)}}
+#app{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:14px}
+.scr{background:linear-gradient(#fffaf0,#f6efff);border:5px solid var(--g);border-radius:28px;padding:20px 18px;box-shadow:0 0 0 4px var(--p2),0 14px 30px #0006;text-align:center;animation:pop .5s}
+@keyframes pop{from{transform:scale(.9);opacity:0}}
+h1{font-size:2.4rem;margin:.1em 0;color:var(--p);line-height:1.05}h2{font-size:1.5rem;margin:.3em 0 .6em;color:var(--p)}p{font-size:1.15rem;margin:.4em 0}
+.hero{font-size:5rem;animation:bob 2.4s infinite ease-in-out}.row{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;align-items:center}
+@keyframes bob{50%{transform:translateY(-12px) rotate(4deg)}}
+.crown{display:inline-block;font-size:3rem;animation:bob 2s infinite}
+.btn,.go{font:800 1.2rem 'Baloo 2',system-ui;border:0;border-radius:40px;padding:10px 26px;margin:8px 4px;cursor:pointer;color:var(--p);background:linear-gradient(#ffe28a,#f5c542);box-shadow:0 5px 0 #b88a12;transition:transform .15s}
+.btn:active,.go:active{transform:translateY(4px);box-shadow:0 1px 0 #b88a12}.btn:hover{transform:scale(1.05)}
+.btn.alt{background:linear-gradient(#9a5ee6,#6a2fb8);color:#fff;box-shadow:0 5px 0 #3b1470}
+input{font:700 1.2rem 'Baloo 2';padding:8px 16px;border-radius:30px;border:3px solid var(--p2);text-align:center;width:80%;max-width:300px}
+.card{background:#fff;border:3px solid var(--g);border-radius:20px;padding:12px;box-shadow:0 4px 0 var(--p2);margin:6px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.food{cursor:pointer;transition:transform .2s}.food:hover{transform:rotate(-3deg) scale(1.05)}.food.hit{animation:jelly .6s}
+@keyframes jelly{30%{transform:scale(1.2,.8)}60%{transform:scale(.9,1.1)}}
+.food .e{font-size:3.4rem}.food b{display:block;font-size:1.3rem;color:var(--p)}.food small{color:#7a5ca6;font-size:1rem}
+.bub{background:var(--p3);border:3px solid var(--p2);border-radius:22px;padding:8px 14px;font-size:1.3rem;font-weight:700;cursor:pointer;margin:6px;display:inline-block;position:relative}
+.bub:hover{background:#e0ccff}.like{color:var(--ok)}.dont{color:var(--no)}
+.top{display:flex;align-items:center;gap:10px}.bar{flex:1;height:16px;background:#e3d3fa;border-radius:10px;overflow:hidden;border:2px solid var(--p2)}.bar i{display:block;height:100%;background:linear-gradient(90deg,#f5c542,#ffdf7a);transition:width .5s}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
+.opt{font:800 1.5rem 'Baloo 2';background:#fff;border:4px solid var(--p2);border-radius:20px;padding:12px 6px;cursor:pointer;color:var(--p);transition:.15s}
+.opt:hover{background:var(--p3);transform:scale(1.04)}.opt.ok{background:#c9f3d8;border-color:var(--ok)}.opt.bad{background:#ffd3de;border-color:var(--no);animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.big{font-size:1.4rem}.sent{font-size:1.9rem;font-weight:800;margin:8px 0;color:var(--p)}.blank{border-bottom:5px dashed var(--g);padding:0 24px}
+.slot{display:inline-flex;flex-direction:column;align-items:center;min-width:92px;min-height:90px;margin:5px;padding:6px;border:4px dashed var(--p2);border-radius:18px;background:#fff;font-size:2.2rem;cursor:pointer}
+.slot b{font-size:1.2rem;color:var(--ok)}
+.chip{display:inline-block;margin:5px;padding:8px 16px;border-radius:30px;background:linear-gradient(#9a5ee6,#6a2fb8);color:#fff;font-weight:800;font-size:1.25rem;cursor:grab;box-shadow:0 4px 0 #3b1470;user-select:none}.chip.sel{outline:4px solid var(--g);transform:scale(1.1)}
+.mt{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px;margin:10px 0}.mt .opt{font-size:1.2rem}.opt.sel{outline:4px solid var(--g);background:var(--g2)}.opt.done{background:#c9f3d8;border-color:var(--ok);opacity:.8;pointer-events:none}
+.mic{font-size:3rem;width:100px;height:100px;border-radius:50%;border:5px solid var(--g);background:radial-gradient(#9a5ee6,#6a2fb8);cursor:pointer;color:#fff}.mic.on{animation:pulse 1s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 18px #f5c54255}}
+.fb{font-size:1.8rem;font-weight:800;margin:10px 0;animation:pop .4s}.fb.ok{color:var(--ok)}.fb.bad{color:var(--no)}
+.wheel{font-size:6rem}.wheel.spin{animation:sp .9s}@keyframes sp{to{transform:rotate(720deg) scale(1.2)}}
+.conf{position:fixed;top:-40px;font-size:1.8rem;z-index:9;pointer-events:none;animation:fall 2.4s linear forwards}@keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}
+.stars{font-size:2.6rem}.face{font-size:2.2rem;background:#fff;border:3px solid var(--p2);border-radius:18px;padding:2px 10px;cursor:pointer;margin:3px}.face.on{background:var(--g2);border-color:var(--g);transform:scale(1.15)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+@media(max-width:480px){h1{font-size:1.9rem}.hero{font-size:4rem}}
+</style></head><body>
+<div id="sky"></div><div id="app"></div>
+<script>
+const $=s=>document.querySelector(s),app=$('#app');
+const F=[['Mi Aceh','Mi Aceh','🍜'],['rice','nasi','🍚'],['fried chicken','ayam goreng','🍗'],['egg','telur','🥚'],['fish','ikan','🐟'],['milk','susu','🥛']];
+let name='',score=0,qi=0,sel=null,fill=[],ml={},ph=0;
+for(let i=0;i<26;i++){const s=document.createElement('i');s.textContent=['✦','✧','⭐'][i%3];s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;font-size:${10+Math.random()*16}px;animation-delay:${Math.random()*3}s`;$('#sky').appendChild(s)}
+function say(t){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t.replace(/Mi Aceh/g,'Mee Ah-cheh'));u.lang='en-US';u.rate=.8;u.pitch=1.1;speechSynthesis.speak(u)}catch(e){}}
+function show(h){app.innerHTML='<div class="scr">'+h+'</div>';scrollTo(0,0)}
+function boom(){for(let i=0;i<26;i++){const c=document.createElement('span');c.className='conf';c.textContent=['👑','⭐','✨','💜','🌟'][i%5];c.style.left=Math.random()*100+'%';c.style.animationDelay=Math.random()*.6+'s';document.body.appendChild(c);setTimeout(()=>c.remove(),3200)}}
+const nm=()=>name||'Teman';
+/* 1 Cover */
+function s0(){show(`<div class="crown">👑</div><div class="hero">🏰</div><h1>Royal Food Party</h1><p><b>Food &amp; Drink I Like and Don’t Like</b></p><p>Bahasa Inggris • Kelas 3 SD</p><div class="row"><span style="font-size:3rem">🤴</span><span style="font-size:3rem">👸</span></div><p>Halo, Pangeran &amp; Putri! Siapa namamu?</p><input id="nm" placeholder="Tulis namamu / Your name" maxlength="16"><br><button class="btn" onclick="name=$('#nm').value.trim();say('Welcome to the royal food party '+name);s1()">Mulai / Start 👑</button>`)}
+/* 2 Goals */
+function s1(){show(`<h2>🎯 Misi Kerajaan, ${nm()}!</h2><div class="card"><p class="big">🔊 <b>1.</b> Mendengar &amp; menirukan 6 makanan<br><small>Listen and say 6 foods</small></p></div><div class="card"><p class="big">😍🤢 <b>2.</b> Berkata <b>I like …</b> dan <b>I don’t like …</b></p></div><div class="card"><p class="big">🗣️ <b>3.</b> Bertanya &amp; menjawab dengan teman:<br><b>Do you like …? – Yes, I do. / No, I don’t.</b></p></div><button class="btn" onclick="s2()">Ayo belajar! ➜</button>`)}
+/* 3 Vocab */
+function s2(){ml={};show(`<h2>🍽️ Royal Menu</h2><p>Ketuk kartu → dengarkan → tirukan keras-keras!<br><small>Tap, listen, repeat.</small></p><div class="grid">${F.map((f,i)=>`<div class="card food" id="f${i}" onclick="say('${f[0]}');ml[${i}]=1;this.classList.remove('hit');void this.offsetWidth;this.classList.add('hit');$('#cnt').textContent=Object.keys(ml).length"><div class="e">${f[2]}</div><b>${f[0]}</b><small>${f[1]}</small></div>`).join('')}</div><p>⭐ Sudah dicoba: <b id="cnt">0</b>/6</p><button class="btn" onclick="s3()">Lanjut ➜</button>`)}
+/* 4 Pattern */
+function s3(){show(`<h2>💬 Cara Mengatakannya</h2><p>Ketuk gelembung untuk mendengar!</p><div class="card"><span style="font-size:3rem">🤴</span><div class="bub like" onclick="say('I like fish.')">😍 I like fish.</div><p><small>Aku suka ikan.</small></p></div><div class="card"><span style="font-size:3rem">👸</span><div class="bub dont" onclick="say('I don’t like milk.')">🤢 I don’t like milk.</div><p><small>Aku tidak suka susu.</small></p></div><div class="card"><span style="font-size:3rem">🤴</span><div class="bub" onclick="say('Do you like egg?')">Do you like egg? 🥚</div><br><span style="font-size:3rem">👸</span><div class="bub like" onclick="say('Yes, I do.')">Yes, I do. 😍</div><div class="bub dont" onclick="say('No, I don’t.')">No, I don’t. 🤢</div><p><small>Apakah kamu suka telur? – Ya, suka. / Tidak, tidak suka.</small></p></div><button class="btn" onclick="s4()">Main bareng! ➜</button>`)}
+/* 5 Activity */
+let pairs=0;
+function s4(){pairs=0;show(`<h2>🎡 Royal Wheel – Berpasangan!</h2><p>Murid A putar roda &amp; bertanya. Murid B menjawab. Lalu tukar peran!</p><div class="wheel" id="wh">🎡</div><button class="btn" onclick="spin()">Putar / Spin!</button><div id="dlg"></div><p>👑 Pasangan selesai: <b id="pc">0</b></p><button class="btn alt" onclick="qi=0;score=0;q()">Mulai Kuis! ➜</button>`)}
+function spin(){const f=F[Math.floor(Math.random()*6)],w=$('#wh');w.className='wheel';void w.offsetWidth;w.className='wheel spin';setTimeout(()=>{w.textContent=f[2];const t=`Do you like ${f[0]}?`;say(t);$('#dlg').innerHTML=`<div class="card"><p>🤴 A: <b>${t}</b> <button class="btn" onclick="say('${t}')">🔊</button></p><p>👸 B: pilih jawabanmu!</p><button class="btn" onclick="ans(1,'${f[0]}')">Yes, I do. 😍</button><button class="btn alt" onclick="ans(0,'${f[0]}')">No, I don’t. 🤢</button><div id="rx"></div></div>`},900)}
+function ans(y,f){say(y?'Yes, I do. I like '+f+'.':'No, I don’t. I don’t like '+f+'.');$('#rx').innerHTML=`<p class="fb ${y?'ok':'bad'}">${y?'😍 I like '+f+'!':'🤢 I don’t like '+f+'.'}</p>`;if(y)boom();$('#pc').textContent=++pairs}
+/* Quiz */
+const Q=[
+{t:'listen',ask:'🎧 Dengarkan, lalu pilih gambar!',say:'fish',opts:['🍗','🐟','🥛','🥚'],ans:1},
+{t:'drag',ask:'🧲 Seret kata ke gambar yang benar!',slots:[['🍚','rice'],['🥚','egg'],['🥛','milk']],chips:['milk','rice','egg']},
+{t:'fill',ask:'✏️ Lengkapi kalimat!',pic:'😍 🍜',pre:'I',post:'Mi Aceh.',opts:['like','don’t like'],ans:0},
+{t:'match',ask:'🔗 Pasangkan gambar dan kata!',pairs:[['🍜','Mi Aceh'],['🍗','fried chicken'],['🐟','fish']]},
+{t:'speak',ask:'🎤 Ucapkan kalimat ini!',text:'I like Mi Aceh.'},
+{t:'listen',ask:'🎧 Dengarkan! Apa perasaannya?',say:'I don’t like milk.',opts:['😍🥛','🤢🥛','😍🥚','🤢🥚'],ans:1},
+{t:'drag',ask:'🧲 Susun kalimat: I don’t like egg.',slots:[['1','I'],['2','don’t'],['3','like'],['4','egg.']],chips:['egg.','like','I','don’t']},
+{t:'fill',ask:'✏️ Jawab pertanyaan!',pic:'Do you like fish? 😍',pre:'Yes, I',post:'.',opts:['do','don’t'],ans:0},
+{t:'match',ask:'🔗 Pasangkan kalimat dan artinya!',pairs:[['I like fish.','Aku suka ikan.'],['I don’t like egg.','Aku tidak suka telur.'],['Do you like rice?','Apakah kamu suka nasi?']]},
+{t:'speak',ask:'🎤 Ucapkan bersama pasanganmu!',text:'Do you like fried chicken? Yes, I do.'}];
+const shuf=a=>[...a].sort(()=>Math.random()-.5);
+function q(){const k=Q[qi];show(`<div class="top"><div class="bar"><i style="width:${qi*10}%"></i></div><b>Soal ${qi+1}/10</b></div><h2>${k.ask}</h2><div id="qb"></div><div id="fb"></div>`);R[k.t](k)}
+function fin(ok,rev){$('#qb').style.pointerEvents='none';if(ok){score++;boom()}
+$('#fb').innerHTML=`<div class="fb ${ok?'ok':'bad'}">${ok?'🌟 Great job! 🌟':'💜 Nice try, keep it up!!!'}</div>${ok||!rev?'':`<p>Jawaban: <b>${rev}</b></p>`}<button class="btn" onclick="${qi<9?'qi++;q()':'res()'}">${qi<9?'Lanjut ➜':'Lihat hasil 👑'}</button>`;say(ok?'Great job!':'Nice try, keep it up!')}
+const R={
+listen(k){setTimeout(()=>say(k.say),400);$('#qb').innerHTML=`<button class="btn big" onclick="say('${k.say}')">🔊 Putar suara</button><div class="opts">${k.opts.map((o,i)=>`<button class="opt" onclick="pk(${i},this)">${o}</button>`).join('')}</div>`},
+fill(k){$('#qb').innerHTML=`<div class="sent">${k.pic}</div><div class="sent">${k.pre} <span class="blank" id="bl">&nbsp;&nbsp;</span> ${k.post}</div><div class="opts">${k.opts.map((o,i)=>`<button class="opt" onclick="pk(${i},this)">${o}</button>`).join('')}</div>`},
+drag(k){fill=k.slots.map(()=>null);sel=null;dg()},
+match(k){const n=k.pairs.length;ml={R:shuf([...Array(n).keys()]),s:null,d:[],bad:false};mt()},
+speak(k){$('#qb').innerHTML=`<div class="sent">${k.text}</div><button class="btn" onclick="say('${k.text}')">🔊 Dengar contoh</button><br><button class="mic" id="mic" onclick="rec()">🎤</button><p id="st">Ketuk 🎤 lalu ucapkan!</p>`}};
+function pk(i,b){const k=Q[qi],ok=i==k.ans;b.classList.add(ok?'ok':'bad');if(!ok)document.querySelectorAll('.opt')[k.ans].classList.add('ok');if(k.t=='fill'){$('#bl').textContent=k.opts[k.ans]}fin(ok,k.t=='fill'?`${k.pre} ${k.opts[k.ans]} ${k.post}`:k.opts[k.ans])}
+function dg(){const k=Q[qi],used=fill.filter(Boolean);$('#qb').innerHTML=`<div>${k.slots.map((s,i)=>`<div class="slot" ondragover="event.preventDefault()" ondrop="put(${i})" onclick="put(${i})">${s[0]}<b>${fill[i]||''}</b></div>`).join('')}</div><div style="margin:10px 0">${k.chips.filter(c=>!used.includes(c)).map(c=>`<span class="chip ${sel==c?'sel':''}" draggable="true" ondragstart="sel='${c}'" onclick="sel='${c}';dg()">${c}</span>`).join('')}</div><p><small>Seret atau ketuk kata, lalu ketuk kotak.</small></p>${fill.every(Boolean)?'<button class="go" onclick="chk()">Cek ✔</button>':''}`}
+function put(i){if(sel){fill[i]=sel;sel=null}else fill[i]=null;dg()}
+function chk(){const k=Q[qi];fin(k.slots.every((s,i)=>s[1]==fill[i]),k.slots.map(s=>s[1]).join(' '))}
+function mt(){const k=Q[qi],m=ml;$('#qb').innerHTML=`<div class="mt">${k.pairs.map((p,i)=>`<button class="opt ${m.d.includes(i)?'done':''} ${m.s===i?'sel':''}" onclick="ml.s=${i};mt()">${p[0]}</button><button class="opt ${m.d.includes(m.R[i])?'done':''}" onclick="mc(${m.R[i]},this)">${k.pairs[m.R[i]][1]}</button>`).join('')}</div>`}
+function mc(j,b){const m=ml;if(m.s===null)return;if(m.s==j){m.d.push(j);m.s=null;say(Q[qi].pairs[j][1].match(/[a-z]/i)&&j!=null&&Q[qi].pairs[j][0].length>3&&/[A-Za-z]/.test(Q[qi].pairs[j][0])?Q[qi].pairs[j][0]:Q[qi].pairs[j][1]);if(m.d.length==Q[qi].pairs.length){mt();return fin(!m.bad)}}else{m.bad=true;m.s=null;b.classList.add('bad')}setTimeout(mt,m.bad?350:0)}
+function rec(){const k=Q[qi],SR=window.SpeechRecognition||window.webkitSpeechRecognition,st=$('#st');
+const self=()=>{st.innerHTML='Ucapkan keras-keras, lalu ketuk:<br><button class="go" onclick="fin(true)">Aku sudah mengucapkan ✔</button>'};
+if(!SR)return self();const r=new SR();r.lang='en-US';$('#mic').classList.add('on');st.textContent='Aku mendengarkan… 👂';
+r.onresult=e=>{const n=s=>s.toLowerCase().replace(/[^a-z ]/g,'').split(/\s+/).filter(Boolean),h=n(e.results[0][0].transcript),t=n(k.text);fin(t.filter(w=>h.includes(w)).length/t.length>=.6,k.text)};
+r.onerror=()=>{$('#mic').classList.remove('on');self()};r.onend=()=>$('#mic')&&$('#mic').classList.remove('on');try{r.start()}catch(e){self()}}
+/* Result & reflection */
+function res(){boom();const s=score>=9?'👑👑👑':score>=6?'👑👑':'👑',tt=score>=9?'Royal Chef! Hebat sekali!':score>=6?'Royal Helper! Bagus!':'Royal Learner! Ayo latihan lagi!';say(tt);
+show(`<div class="hero">🏆</div><h2>Hasil Kuis ${nm()}</h2><div class="stars">${s}</div><h1>${score}/10</h1><p><b>${tt}</b></p><button class="btn" onclick="s6()">Refleksi ➜</button><button class="btn alt" onclick="qi=0;score=0;q()">Main lagi 🔁</button>`)}
+const RF=['Aku bisa menyebut 6 makanan dalam bahasa Inggris','Aku bisa bilang I like … dan I don’t like …','Aku bisa tanya Do you like …? dan menjawabnya'];let rv={};
+function s6(){rv={};show(`<h2>💭 Refleksi Kerajaan</h2><p>Ketuk wajah yang cocok untukmu, ${nm()}!</p>${RF.map((r,i)=>`<div class="card"><p>${r}</p>${['😄 Bisa!','🙂 Hampir','😅 Latihan lagi'].map((f,j)=>`<span class="face" onclick="rf(${i},${j},this)">${f}</span>`).join('')}</div>`).join('')}<div id="rm"></div>`)}
+function rf(i,j,b){rv[i]=j;b.parentNode.querySelectorAll('.face').forEach(x=>x.classList.remove('on'));b.classList.add('on');if(Object.keys(rv).length==3){boom();say('Thank you! See you next time!');$('#rm').innerHTML=`<p class="fb ok">👑 Terima kasih, ${nm()}!<br>Thank you! See you next time!</p><p>PR kerajaan: tanya <b>Do you like …?</b> ke keluargamu di rumah!</p><button class="btn" onclick="s0()">Kembali ke awal 🏰</button>`}}
+s0();
+</script></body></html>
